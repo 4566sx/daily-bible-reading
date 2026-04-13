@@ -147,9 +147,9 @@ READING_PLAN = [
 
 def get_today_plan():
     """获取今天的读经计划"""
-    # 使用北京时间
-    import pytz
-    beijing_tz = pytz.timezone('Asia/Shanghai')
+    # 使用北京时间 (UTC+8)
+    from datetime import timezone, timedelta
+    beijing_tz = timezone(timedelta(hours=8))
     today = datetime.now(beijing_tz).replace(hour=0, minute=0, second=0, microsecond=0)
     days_passed = (today - START_DATE).days + 1
     
@@ -170,8 +170,8 @@ def send_wechat_message(day_num, title, chapters):
     title_msg = f"📖 每日读经 | 第{day_num}天"
     
     # 构建消息内容（Markdown格式）
-    import pytz
-    beijing_tz = pytz.timezone('Asia/Shanghai')
+    from datetime import timezone, timedelta
+    beijing_tz = timezone(timedelta(hours=8))
     today = datetime.now(beijing_tz).strftime("%Y年%m月%d日")
     
     desp = f"""## {title_msg}
